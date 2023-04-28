@@ -14,55 +14,8 @@ local plugins = {
       "kyazdani42/nvim-web-devicons"
     },
     config = function()
-      local list_keys = require("keybindings").nvimTree
-      require("nvim-tree").setup {
-        -- 不显示 git 状态图标
-        git = {
-          enable = false,
-        },
-        -- project plugin 需要这样设置
-        update_cwd = true,
-        update_focused_file = {
-          enable = true,
-          update_cwd = true,
-        },
-        -- 隐藏 .文件 和 node_modules 文件夹
-        filters = {
-          dotfiles = true,
-          custom = { 'node_modules' },
-        },
-        view = {
-          -- 宽度
-          width = 40,
-          -- 也可以 'right'
-          side = 'left',
-          -- 隐藏根目录
-          hide_root_folder = false,
-          -- 自定义列表中快捷键
-          mappings = {
-            custom_only = false,
-            list = list_keys,
-          },
-          -- 不显示行数
-          number = false,
-          relativenumber = false,
-          -- 显示图标
-          signcolumn = 'yes',
-        },
-        actions = {
-          open_file = {
-            -- 首次打开大小适配
-            resize_window = true,
-            -- 打开文件时关闭
-            quit_on_open = true,
-          },
-        },
-        -- wsl install -g wsl-open
-        -- https://github.com/4U6U57/wsl-open/
-        system_open = {
-          cmd = 'wsl-open', -- mac 直接设置为 open
-        },
-      }
+      local opt = require('plugins.nvimtree')
+      require('nvim-tree').setup(opt.settings)
     end
   },
   {
@@ -112,7 +65,7 @@ local plugins = {
     config = function()
       require('lualine').setup {
         options = {
-          theme = "auto",
+          theme = "tokyonight",
           component_separators = { left = "|", right = "|" },
           section_separators = { left = " ", right = "" },
         },
@@ -297,9 +250,19 @@ local plugins = {
     end
   },
   {
-    'neoclide/coc.nvim',
-    branch = 'release'
-  }
+    "williamboman/mason.nvim",
+    build = ":MasonUpdate"
+  },
+  { "williamboman/mason-lspconfig.nvim" },
+  { "neovim/nvim-lspconfig" },
+  { "hrsh7th/nvim-cmp", },
+  { "hrsh7th/cmp-nvim-lsp", },
+  { "hrsh7th/cmp-buffer" },
+  { "hrsh7th/cmp-path", },
+  { "hrsh7th/cmp-vsnip" },
+  { "hrsh7th/vim-vsnip" },
+  { "hrsh7th/cmp-cmdline" },
+  { "rafamadriz/friendly-snippets" }
 }
 M.list = plugins
 return M

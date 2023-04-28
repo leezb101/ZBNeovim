@@ -18,3 +18,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = require('plugins')
 -- require('lazy')
 require('lazy').setup(plugins.list)
+require('lsp.setup')
+
+require("colorscheme")
+require("lsp.cmp")
