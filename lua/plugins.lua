@@ -295,6 +295,10 @@ local plugins = {
       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
       vim.opt.foldlevel = 99
     end
+  },
+  {
+    'neoclide/coc.nvim',
+    branch = 'release'
   }
 }
 M.list = plugins
