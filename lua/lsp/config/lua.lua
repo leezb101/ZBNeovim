@@ -1,6 +1,8 @@
-local runtime_path = vim.split(package.path, ';')
-table.insert(runtime_path, 'lua/?.lua')
-table.insert(runtime_path, 'lua/?/init.lua')
+-- local runtime_path = vim.split(package.path, ';')
+-- table.insert(runtime_path, 'lua/?.lua')
+-- table.insert(runtime_path, 'lua/?/init.lua')
+
+local common = require('lsp.common-config')
 
 local opts = {
   settings = {
@@ -9,7 +11,7 @@ local opts = {
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
         -- Setup your lua path
-        path = runtime_path,
+        -- path = runtime_path,
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
@@ -26,27 +28,20 @@ local opts = {
       },
     },
   },
-  flags = {
-    debounce_text_changes = 150,
-  },
+  flags = common.flags,
   on_attach = function(client, bufnr)
-    -- 禁用格式化功能，交给专门插件插件处理
-    client.server_capabilities.documentFormattingProvider = false
-    client.server_capabilities.documentRangeFormattingProvider = false
-
-    local function buf_set_keymap(...)
-      vim.api.nvim_buf_set_keymap(bufnr, ...)
-    end
-    -- 绑定快捷键
-    require('keybindings').mapLSP(buf_set_keymap)
-    -- 保存时自动格式化
-    vim.cmd('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()')
+    common.disableFormat(client)
+    common.keyAttach(bufnr)
+    -- vim.cmd('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()')
   end,
+  capabilities = common.capabilities
 }
 
 -- 查看目录等信息
 return {
   on_setup = function(server)
-    server:setup(opts)
+    print(common.capabilities)
+    print(common.flags.debounce_text_changes)
+    server.setup(opts)
   end,
 }

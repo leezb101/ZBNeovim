@@ -262,7 +262,22 @@ local plugins = {
   { "hrsh7th/cmp-vsnip" },
   { "hrsh7th/vim-vsnip" },
   { "hrsh7th/cmp-cmdline" },
-  { "rafamadriz/friendly-snippets" }
+  { "rafamadriz/friendly-snippets" },
+  { "onsails/lspkind-nvim" },
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function()
+      local opt = require('plugins.indent-blankline').opt
+      require('indent_blankline').setup(opt)
+    end
+  },
+  {
+    "tami5/lspsaga.nvim",
+    config = function()
+      local opt = require('lsp.ui').lspSagaOpt
+      require('lspsaga').setup(opt)
+    end
+  }
 }
 M.list = plugins
 return M

@@ -31,6 +31,8 @@ cmp.setup({
     -- -- For snippy users.
     -- { name = 'snippy' },
   }, { { name = "buffer" }, { name = "path" } }),
+  mapping = require('keybindings').cmp(cmp),
+  formatting = require('lsp.ui').formatting
 })
 
 -- / 查找模式使用 buffer 源
