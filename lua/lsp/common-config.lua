@@ -3,6 +3,7 @@ local M = {}
 M.keyAttach = function(bufnr)
   local opt = { noremap = true, silent = true, buffer = bufnr }
 
+  print('我正在进行绑定')
   keymap('n', 'gp', '<CMD>lua vim.diagnostic.open_float()<CR>')
   keymap("n", 'gj', "<CMD>lua vim.diagnostic.goto_next()<CR>")
   keymap("n", 'gk', "<CMD>lua vim.diagnostic.goto_prev()<CR>")

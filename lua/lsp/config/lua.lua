@@ -30,6 +30,9 @@ local opts = {
   },
   flags = common.flags,
   on_attach = function(client, bufnr)
+    print('绑定以前')
+    print(client)
+    print(bufnr)
     common.disableFormat(client)
     common.keyAttach(bufnr)
     -- vim.cmd('autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()')
@@ -40,8 +43,7 @@ local opts = {
 -- 查看目录等信息
 return {
   on_setup = function(server)
-    print(common.capabilities)
-    print(common.flags.debounce_text_changes)
+    print('开始setup')
     server.setup(opts)
   end,
 }

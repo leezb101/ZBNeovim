@@ -52,6 +52,8 @@ local servers = {
 -- 自动安装 language Servers
 for name, config in pairs(servers) do
   if config ~= nil and type(config) == "table" then
+    print(config)
+    print(name)
     -- 自定义初始化配置文件必须实现on_setup 方法
     config.on_setup(lspconfig[name])
   else
